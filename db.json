@@ -1,3 +1,12 @@
 {
-  "Clientes": []
+  "Clientes": [
+    {
+      "nombre": "Rudy Perez",
+      "empresa": "RAPCCODE",
+      "email": "rapccode@gmail.com",
+      "telefono": "8299785120",
+      "notas": "",
+      "id": 1
+    }
+  ]
 }
