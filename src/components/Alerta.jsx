@@ -1,6 +1,7 @@
-import React from 'react'
+import Swal from "sweetalert2"
 
 const Alerta = ({children}) => {
+  
   return (
     <div className='text-center my-4 text-red-600  font-bold p-3 uppercase'>
     {children}

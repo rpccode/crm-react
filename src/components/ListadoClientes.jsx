@@ -2,10 +2,33 @@
 import { useState, useEffect } from 'react'
 import Cliente from './Cliente';
 import {Link} from 'react-router-dom'
+import Swal from 'sweetalert2';
+// import 'bootstrap/dist/css/bootstrap.min.css'
 
 
 const ListadoClientes = () => {
+    const swalWithBootstrapButtons = Swal.mixin({
+        customClass: {
+          confirmButton: 'btn btn-succes',
+          cancelButton: 'btn btn-danger'
+        },
+        buttonsStyling: false
+      })
     const [clientes, setclientes] = useState([]);
+       const eliminarCliente = async () =>{
+            try {
+                
+                const url =`http://localhost:4000/clientes/${id}`
+                const  respuesta = await fetch(url, {
+                    method: 'delete'
+                })
+
+                await respuesta.json()
+
+            } catch (error) {
+                console.log(error);
+            }
+     }
     useEffect(() => {
 
         const obtenerClientesApi = async () => {
@@ -21,6 +44,53 @@ const ListadoClientes = () => {
 
         obtenerClientesApi();
     }, []);
+
+    const handleEliminar =  (id) =>{
+      
+          
+          swalWithBootstrapButtons.fire({
+            title: 'deseas Eliminar este cliente?',
+            text: "No se Puede Revertir!",
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonText: 'Si, Eliminar!',
+            cancelButtonText: 'No, Cancelar!',
+            reverseButtons: true
+          }).then( async (result) => {
+            if (result.isConfirmed) {
+                
+                try {
+                
+                    const url =`http://localhost:4000/clientes/${id}`
+                    const  respuesta = await fetch(url, {
+                        method: 'delete'
+                    })
+
+                    swalWithBootstrapButtons.fire(
+                        'Eliminado!',
+                        'El cliente a sido Eliminado.',
+                        'success'
+                      )
+                    await respuesta.json()
+                    
+                    const arrayClientes = clientes.filter(cliente => cliente.id !== id)
+                    setclientes(arrayClientes);
+                } catch (error) {
+                    console.log(error);
+                }
+              
+            } else if (
+              /* Read more about handling dismissals below */
+              result.dismiss === Swal.DismissReason.cancel
+            ) {
+              swalWithBootstrapButtons.fire(
+                'Cancelado',
+                'Tu Archivo esta Seguro:)',
+                'error'
+              )
+            }
+          })
+    }
 
     return (
 
@@ -71,6 +141,7 @@ const ListadoClientes = () => {
                         <Cliente
                             key={cliente.id}
                             cliente={cliente}
+                            handleEliminar={handleEliminar}
                         />
                     ))}
                 </tbody>

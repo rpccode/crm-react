@@ -6,6 +6,7 @@ const VerCliente = () => {
     const [cliente, setcliente] = useState({});
     const {id} = useParams();
     const [cargando, setcargando] = useState(true);
+    
     useEffect(() => {
         
         

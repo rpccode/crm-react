@@ -1,6 +1,7 @@
 import { useState } from 'react'
 import { BrowserRouter, Route, Routes } from 'react-router-dom'
 import Layout from './layouts/Layout'
+import EditarCliente from './pages/EditarCliente'
 import Home from './pages/Home'
 import Inicio from './pages/Inicio'
 import NuevoCliente from './pages/NuevoCliente'
@@ -20,6 +21,8 @@ function App() {
                 <Route path='/clientes'  element={<Inicio/>} />
                 <Route path='/clientes/nuevo'  element={<NuevoCliente/>} />
                 <Route path='/clientes/:id' element={<VerCliente/>} />
+                <Route path='/clientes/editar/:id'  element={<EditarCliente/>} />
+
 
           </Route>
       </Routes>
