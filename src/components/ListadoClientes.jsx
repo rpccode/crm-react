@@ -7,6 +7,7 @@ import Swal from 'sweetalert2';
 
 
 const ListadoClientes = () => {
+    
     const swalWithBootstrapButtons = Swal.mixin({
         customClass: {
           confirmButton: 'btn btn-succes',
@@ -18,7 +19,7 @@ const ListadoClientes = () => {
        const eliminarCliente = async () =>{
             try {
                 
-                const url =`http://localhost:4000/clientes/${id}`
+                const url =`${import.meta.env.VITE_API_URL}/${id}`
                 const  respuesta = await fetch(url, {
                     method: 'delete'
                 })
@@ -33,7 +34,7 @@ const ListadoClientes = () => {
 
         const obtenerClientesApi = async () => {
             try {
-                const url = 'http://localhost:4000/Clientes';
+                const url = import.meta.env.VITE_API_URL;
                 const respuesta = await fetch(url);
                 const resultado = await respuesta.json();
                 setclientes(resultado);
@@ -61,7 +62,7 @@ const ListadoClientes = () => {
                 
                 try {
                 
-                    const url =`http://localhost:4000/clientes/${id}`
+                    const url =`${import.meta.env.VITE_API_URL}/${id}`
                     const  respuesta = await fetch(url, {
                         method: 'delete'
                     })
